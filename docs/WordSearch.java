@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class WordSearch {
 
     public static void main(String[] args) {
@@ -17,15 +18,20 @@ public class WordSearch {
         words.add("LP");
         words.add("NO");
 
-        List<String> foundWords = new ArrayList<>();
+        List<Pair> foundWords = new ArrayList<>();
 
         findAndRemoveWords(grid, words, foundWords);
 
-        
-        System.out.println("Gefunden wurde: " + foundWords);
+        for (Pair pair : foundWords) {
+            System.out.println("Wort: " + pair.getWord());
+            System.out.println("Ausrichtung: " + pair.getDirection());
+            System.out.println("Startindex: " + pair.getIndices()[0]);
+            System.out.println("Endindex: " + pair.getIndices()[1]);
+        }
+ 
     }
 
-    public static void findAndRemoveWords(char[][] grid, List<String> searchedWords, List<String> foundWords) {
+    public static void findAndRemoveWords(char[][] grid, List<String> searchedWords, List<Pair> foundWords) {
         int rowLength = grid.length;
         int colLength = grid[0].length;
 
@@ -36,10 +42,12 @@ public class WordSearch {
             // Horizontal search
             for (int row = 0; row < rowLength; row++) {
                 String rowString = new String(grid[row]);
-                if (rowString.contains(word)) {
+                int startIndexWort = rowString.indexOf(word);
+                if (startIndexWort != -1) {
                     System.out.println("Wort: " + word + " gefunden in Zeile " + (row + 1));
                     found = true;
-                    foundWords.add(word);
+                    int endIndexWort = startIndexWort + word.length() -1;
+                    foundWords.add(new Pair(word, "Horizontal", new int[]{startIndexWort, endIndexWort}));
                     break;
                 }
             }
@@ -50,12 +58,13 @@ public class WordSearch {
                     StringBuilder colString = new StringBuilder();
                     for (int row = 0; row < rowLength; row++) {
                         colString.append(grid[row][col]);
-                        System.out.println(colString);
                     }
-                    if (colString.toString().contains(word)) {
+                    int startIndexWort = colString.indexOf(word);
+                    if (startIndexWort != -1) {
                         System.out.println("Wort: " + word + " gefunden in Spalte " + (col + 1));
                         found = true;
-                        foundWords.add(word);
+                        int endIndexWort = startIndexWort + word.length() -1;
+                        foundWords.add(new Pair(word, "Vertikal", new int[]{startIndexWort, endIndexWort}));
                         break;
                     }
                 }
