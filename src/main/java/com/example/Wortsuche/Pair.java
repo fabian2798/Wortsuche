@@ -1,3 +1,4 @@
+package com.example.Wortsuche;
 
 public class Pair {
     String word;
@@ -11,7 +12,7 @@ public class Pair {
         this.direction = direction;
         this.indices = indices;
     }
-    
+
     public String getWord() {
         return word;
     }
@@ -23,8 +24,9 @@ public class Pair {
     public String getDirection() {
         return direction;
     }
-  
+
     public int[] getIndices() {
         return indices;
     }
 }
+

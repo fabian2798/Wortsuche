@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### ENV ###
+.env
+docs/Pair.class
+docs/WordSearch.class

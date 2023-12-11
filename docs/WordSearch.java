@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 
 public class WordSearch {
@@ -22,13 +24,25 @@ public class WordSearch {
 
         findAndRemoveWords(grid, words, foundWords);
 
+        // for (Pair pair : foundWords) {
+        //     System.out.println("Wort: " + pair.getWord());
+        //     System.out.println(pair.getPlace());
+        //     System.out.println("Ausrichtung: " + pair.getDirection());
+        //     System.out.println("Startindex: " + pair.getIndices()[0]);
+        //     System.out.println("Endindex: " + pair.getIndices()[1]);
+        // }
+
+        Map<String, List<Object>> map = new HashMap<>();
         for (Pair pair : foundWords) {
-            System.out.println("Wort: " + pair.getWord());
-            System.out.println("Ausrichtung: " + pair.getDirection());
-            System.out.println("Startindex: " + pair.getIndices()[0]);
-            System.out.println("Endindex: " + pair.getIndices()[1]);
+            List<Object> attributes = new ArrayList<>();
+            attributes.add(pair.getPlace());
+            attributes.add(pair.getDirection());
+            attributes.add(pair.getIndices()[0]);
+            attributes.add(pair.getIndices()[1]);
+
+            map.put(pair.getWord(), attributes);
         }
- 
+        System.out.println(map);
     }
 
     public static void findAndRemoveWords(char[][] grid, List<String> searchedWords, List<Pair> foundWords) {
@@ -47,7 +61,7 @@ public class WordSearch {
                     System.out.println("Wort: " + word + " gefunden in Zeile " + (row + 1));
                     found = true;
                     int endIndexWort = startIndexWort + word.length() -1;
-                    foundWords.add(new Pair(word, "Horizontal", new int[]{startIndexWort, endIndexWort}));
+                    foundWords.add(new Pair(word,"Zeile: " + row, "Horizontal", new int[]{startIndexWort, endIndexWort}));
                     break;
                 }
             }
@@ -64,7 +78,7 @@ public class WordSearch {
                         System.out.println("Wort: " + word + " gefunden in Spalte " + (col + 1));
                         found = true;
                         int endIndexWort = startIndexWort + word.length() -1;
-                        foundWords.add(new Pair(word, "Vertikal", new int[]{startIndexWort, endIndexWort}));
+                        foundWords.add(new Pair(word,"Spalte: " + col, "Vertikal", new int[]{startIndexWort, endIndexWort}));
                         break;
                     }
                 }
