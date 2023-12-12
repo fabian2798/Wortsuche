@@ -20,32 +20,51 @@ public class VorlagenController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Vorlagen>> getsingleVorlage(@PathVariable ObjectId id){
-        return new ResponseEntity<Optional<Vorlagen>>(vorlagenService.singleVorlage(id), HttpStatus.OK);
+        Optional<Vorlagen> vorlage = vorlagenService.singleVorlage(id);
+        if(vorlage.isPresent()) {
+            return new ResponseEntity<Optional<Vorlagen>>(vorlagenService.singleVorlage(id), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/byTitle")
     public ResponseEntity<Optional<Vorlagen>> getsingleVorlageByTitle(@RequestParam String title){
-        return new ResponseEntity<Optional<Vorlagen>>(vorlagenService.singleVorlageByTitle(title), HttpStatus.OK);
+        Optional<Vorlagen> vorlage = vorlagenService.singleVorlageByTitle(title);
+        if(vorlage.isPresent()) {
+            return new ResponseEntity<Optional<Vorlagen>>(vorlage, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping("/foundwords/v1")
-    public ResponseEntity<Map<String, List<Object>>> getfoundWordsv1 () {
+    @GetMapping("/foundwords/{version}")
+    public ResponseEntity<Map<String, List<Object>>> getFoundWords(@PathVariable String version) {
         List<Vorlagen> allVorlagen = vorlagenService.allVorlagen();
-        Map<String, List<Object>> map = vorlagenService.findWordsinVorlagen(allVorlagen.get(0));
-        return new ResponseEntity<Map<String, List<Object>>>(map, HttpStatus.OK);
+
+        int vorlagenIndex;
+        switch (version) {
+            case "v1":
+                vorlagenIndex = 0;
+                break;
+            case "v2":
+                vorlagenIndex = 1;
+                break;
+            case "v3":
+                vorlagenIndex = 2;
+                break;
+            default:
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // out of bound
+        if (vorlagenIndex >= allVorlagen.size()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Map<String, List<Object>> map = vorlagenService.findWordsinVorlagen(allVorlagen.get(vorlagenIndex));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping("/foundwords/v2")
-    public ResponseEntity<Map<String, List<Object>>> getfoundWordsv2 () {
-        List<Vorlagen> allVorlagen = vorlagenService.allVorlagen();
-        Map<String, List<Object>> map = vorlagenService.findWordsinVorlagen(allVorlagen.get(1));
-        return new ResponseEntity<Map<String, List<Object>>>(map, HttpStatus.OK);
-    }
-
-    @GetMapping("/foundwords/v3")
-    public ResponseEntity<Map<String, List<Object>>> getfoundWordsv3 () {
-        List<Vorlagen> allVorlagen = vorlagenService.allVorlagen();
-        Map<String, List<Object>> map = vorlagenService.findWordsinVorlagen(allVorlagen.get(2));
-        return new ResponseEntity<Map<String, List<Object>>>(map, HttpStatus.OK);
-    }
 }
