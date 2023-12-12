@@ -1,12 +1,15 @@
 package com.example.Wortsuche;
 
+
+import java.util.Map;
+
 public class Pair {
     String word;
-    String place;
+    Map<String, Integer> place;
     String direction;
     int[] indices;
 
-    public Pair(String word, String place, String direction, int[] indices) {
+    public Pair(String word, Map<String, Integer> place, String direction, int[] indices) {
         this.word = word;
         this.place = place;
         this.direction = direction;
@@ -17,7 +20,7 @@ public class Pair {
         return word;
     }
 
-    public String getPlace() {
+    public Map<String, Integer> getPlace() {
         return place;
     }
 
