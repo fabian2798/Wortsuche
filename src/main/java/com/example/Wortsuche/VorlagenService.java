@@ -1,6 +1,8 @@
 package com.example.Wortsuche;
 
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,9 @@ public class VorlagenService {
     }
 
     public Map<String, List<Object>> findWordsinVorlagen(Vorlagen vorlage) {
+        final Logger log = LoggerFactory.getLogger(VorlagenService.class);
         List<Pair> foundWords = new ArrayList<>();
         char[][] grid = vorlage.getGrid();
-        System.out.println(Arrays.deepToString(grid));
         List<String> loesungswoerter = vorlage.getLoesungswoerter();
 
         int rowLength = grid.length;
@@ -42,7 +44,9 @@ public class VorlagenService {
                 if (startIndexWort != -1) {
                     found = true;
                     int endIndexWort = startIndexWort + word.length() - 1;
-                    foundWords.add(new Pair(word, "Zeile: " + row, "Horizontal", new int[]{startIndexWort, endIndexWort}));
+                    Map<String, Integer> place = new HashMap<>();
+                    place.put("Zeile",row);
+                    foundWords.add(new Pair(word, place, "Horizontal", new int[]{startIndexWort, endIndexWort}));
                     break;
                 }
             }
@@ -58,14 +62,16 @@ public class VorlagenService {
                     if (startIndexWort != -1) {
                         found = true;
                         int endIndexWort = startIndexWort + word.length() - 1;
-                        foundWords.add(new Pair(word, "Spalte: " + col, "Vertikal", new int[]{startIndexWort, endIndexWort}));
+                        Map<String, Integer> place = new HashMap<>();
+                        place.put("Spalte",col);
+                        foundWords.add(new Pair(word, place, "Vertikal", new int[]{startIndexWort, endIndexWort}));
                         break;
                     }
                 }
             }
-            // Sollte nie passieren
+            // Sollte nie passieren, wenn keine diagonalen woerter vorhanden sind
             if (!found) {
-                System.out.println("Wort: " + word + " nicht gefunden");
+                log.warn("Wort: {} nicht gefunden", word);
             }
         }
         Map<String, List<Object>> map = new HashMap<>();
