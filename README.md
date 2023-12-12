@@ -1,4 +1,4 @@
-# Mein Spring-Anwendungsname
+# Wortsuche
 
 Diese Spring-Anwendung bietet verschiedene API-Endpunkte, um Vorlagen abzurufen und gefundene Wörter in den Vorlagen zu suchen.
 
