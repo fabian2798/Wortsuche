@@ -29,26 +29,49 @@ const containerInsideStyle = {
   gridTemplateRows: `repeat(${numRows}, 1fr)`,
  };
  
+ const colors = ["#49CFAD", "#ED5564", "#FC6E51", "#A0D468", "#AC92EC", "#4FC1E9", "#FFCE53", "#FFCE53"]
+
+ const indexes = [
+  { start: [1, 1], end: [1, 6], color: colors[Math.floor(Math.random() * colors.length)], direction:"horizontal" },
+  { start: [3, 13], end: [14, 13], color: colors[Math.floor(Math.random() * colors.length)], direction:"vertical" },
+  { start: [6, 3], end: [6, 9], color: colors[Math.floor(Math.random() * colors.length)], direction:"horizontal" },
+  { start: [10, 0], end: [10, 5], color: colors[Math.floor(Math.random() * colors.length)], direction:"horizontal" }
+ ];
+
+ const woerter = ["EAHSCF", "GSMFSVD", "SUETRA", "WESFITAHHEEF"]
+ 
  return (
   <div className='app'>
     <div className="container big">
       <div className='container-inside big-inside' style={containerInsideStyle}>
-        {letters.map((row, i) => (
-          row.map((letter, j) => (
+      {letters.map((row, i) => (
+        row.map((letter, j) => {
+          const color = indexes.find(({ start, end }) => i >= start[0] && i <= end[0] && j >= start[1] && j <= end[1])?.color;
+          return (
             <div
               key={`${i}-${j}`}
               className='letter'
+              style={{
+                ...(color ? { backgroundColor: color } : {})
+              }}
             >
               {letter}
             </div>
-          ))
+          );
+        })
         ))}
       </div>
     </div>
     <div className="container small">
-      <div className='container-inside small-inside'></div>
+      <div className='container-inside small-inside'>
+        {woerter.map((word, index) => (
+          <span key={index} className='wort'>
+            {word}
+          </span>
+        ))}
+      </div>
       <div className="menu-buttons">
-        <button class="submitbtn">Button</button>
+        <button class="submitbtn">Download</button>
         <div class="icons">
           <i class="fa-solid fa-trash fa-2xl"></i>
         </div>
