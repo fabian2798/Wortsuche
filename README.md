@@ -37,36 +37,42 @@ Beispiel:
 ## API-Endpunkte
 
 ### Alle Vorlagen anzeigen
-- Endpoint: `/vorlagen`
+- Endpoint: `/api/Vorlagen`
 - Beschreibung: Liefert alle verfügbaren Vorlagen zurück.
 
 ### Vorlage nach ID suchen
-- Endpoint: `/vorlagen/{id}`
+- Endpoint: `/api/Vorlagen/{id}`
 - Beschreibung: Liefert die Vorlage mit der angegebenen ID zurück.
 
 ### Vorlage nach Titel suchen
-- Endpoint: `/vorlagen/bytitle?title={title}`
+- Endpoint: `/api/Vorlagen/ByTitle?title={title}`
 - Beschreibung: Sucht nach Vorlagen mit dem angegebenen Titel und liefert sie zurück.
 
 ### Gefundene Wörter in den Vorlagen abrufen (v1, v2, v3)
 - Endpunkte:
-  - `/vorlagen/foundwords/v1`
-  - `/vorlagen/foundwords/v2`
-  - `/vorlagen/foundwords/v3`
+  - `/api/Vorlagen/foundwords/v1`
+  - `/api/Vorlagen/foundwords/v2`
+  - `/api/Vorlagen/foundwords/v3`
 - Beschreibung: Liefert die gefundenen Wörter in den Vorlagen mit Angaben zu Zeilen- oder Spaltennummern, Ausrichtung, Startindex und Endindex zurück.
 
 ## Beispielaufrufe
 
 - Um alle Vorlagen anzuzeigen:
-    `GET http://localhost:8080/vorlagen`
+    `GET http://localhost:8080/api/Vorlagen`
 
 - Um nach einer Vorlage mit einer bestimmten ID zu suchen (ersetze `{id}` durch die tatsächliche ID):
-    `GET http://localhost:8080/vorlagen/{id}`
+    `GET http://localhost:8080/api/Vorlagen/{id}`
   
 - Um nach einer Vorlage mit einem bestimmten Titel zu suchen (ersetze `{title}` durch den tatsächlichen Titel):
-    `GET http://localhost:8080/vorlagen/bytitle?title={title}`
+    `GET http://localhost:8080/api/Vorlagen/ByTitle?title={title}`
   
 - Um die gefundenen Wörter in den Vorlagen abzurufen (v1, v2, v3):
-    `GET http://localhost:8080/vorlagen/foundwords/v1`
-    `GET http://localhost:8080/vorlagen/foundwords/v2`
-    `GET http://localhost:8080/vorlagen/foundwords/v3`
+    `GET http://localhost:8080/api/Vorlagen/foundwords/v1`
+    `GET http://localhost:8080/api/Vorlagen/foundwords/v2`
+    `GET http://localhost:8080/api/Vorlagen/foundwords/v3`
+
+
+  # Enviroment-Datei
+
+  Die Datei `.env.example` sollte mit Hilfe des MongoDB-Connectionstring ausgefüllt werden. Dabei die Änderungen auch erkannt werden, muss die Datei in `.env` 
+  umbennant werden.
