@@ -29,7 +29,7 @@ public class VorlagenController {
         }
     }
 
-    @GetMapping("/byTitle")
+    @GetMapping("/ByTitle")
     public ResponseEntity<Optional<Vorlagen>> getsingleVorlageByTitle(@RequestParam String title){
         Optional<Vorlagen> vorlage = vorlagenService.singleVorlageByTitle(title);
         if(vorlage.isPresent()) {
