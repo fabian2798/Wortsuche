@@ -1,4 +1,4 @@
-# Mein Spring-Anwendungsname
+# Wortsuche
 
 Diese Spring-Anwendung bietet verschiedene API-Endpunkte, um Vorlagen abzurufen und gefundene Wörter in den Vorlagen zu suchen.
 
@@ -37,36 +37,36 @@ Beispiel:
 ## API-Endpunkte
 
 ### Alle Vorlagen anzeigen
-- Endpoint: `/api/Vorlagen`
+- Endpoint: `/vorlagen`
 - Beschreibung: Liefert alle verfügbaren Vorlagen zurück.
 
 ### Vorlage nach ID suchen
-- Endpoint: `/api/Vorlagen/{id}`
+- Endpoint: `/vorlagen/{id}`
 - Beschreibung: Liefert die Vorlage mit der angegebenen ID zurück.
 
 ### Vorlage nach Titel suchen
-- Endpoint: `/api/Vorlagen/ByTitle?title={title}`
+- Endpoint: `/vorlagen/bytitle?title={title}`
 - Beschreibung: Sucht nach Vorlagen mit dem angegebenen Titel und liefert sie zurück.
 
 ### Gefundene Wörter in den Vorlagen abrufen (v1, v2, v3)
 - Endpunkte:
-  - `/api/Vorlagen/foundwords/v1`
-  - `/api/Vorlagen/foundwords/v2`
-  - `/api/Vorlagen/foundwords/v3`
+  - `/vorlagen/foundwords/v1`
+  - `/vorlagen/foundwords/v2`
+  - `/vorlagen/foundwords/v3`
 - Beschreibung: Liefert die gefundenen Wörter in den Vorlagen mit Angaben zu Zeilen- oder Spaltennummern, Ausrichtung, Startindex und Endindex zurück.
 
 ## Beispielaufrufe
 
 - Um alle Vorlagen anzuzeigen:
-    `GET http://localhost:8080/api/Vorlagen`
+    `GET http://localhost:8080/vorlagen`
 
 - Um nach einer Vorlage mit einer bestimmten ID zu suchen (ersetze `{id}` durch die tatsächliche ID):
-    `GET http://localhost:8080/api/Vorlagen/{id}`
+    `GET http://localhost:8080/vorlagen/{id}`
   
 - Um nach einer Vorlage mit einem bestimmten Titel zu suchen (ersetze `{title}` durch den tatsächlichen Titel):
-    `GET http://localhost:8080/api/Vorlagen/ByTitle?title={title}`
+    `GET http://localhost:8080/vorlagen/bytitle?title={title}`
   
 - Um die gefundenen Wörter in den Vorlagen abzurufen (v1, v2, v3):
-    `GET http://localhost:8080/api/Vorlagen/foundwords/v1`
-    `GET http://localhost:8080/api/Vorlagen/foundwords/v2`
-    `GET http://localhost:8080/api/Vorlagen/foundwords/v3`
+    `GET http://localhost:8080/vorlagen/foundwords/v1`
+    `GET http://localhost:8080/vorlagen/foundwords/v2`
+    `GET http://localhost:8080/vorlagen/foundwords/v3`
