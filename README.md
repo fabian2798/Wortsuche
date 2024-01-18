@@ -72,7 +72,7 @@ Beispiel:
     `GET http://localhost:8080/api/Vorlagen/foundwords/v3`
 
 
-  # Enviroment-Datei
+# Enviroment-Datei
 
-  Die Datei `.env.example` sollte mit Hilfe des MongoDB-Connectionstring ausgefüllt werden. Dabei die Änderungen auch erkannt werden, muss die Datei in `.env` 
-  umbennant werden.
+Die Datei `.env.example` sollte mit Hilfe des MongoDB-Connectionstring ausgefüllt werden. Dabei die Änderungen auch erkannt werden, muss die Datei in `.env` 
+umbennant werden.
