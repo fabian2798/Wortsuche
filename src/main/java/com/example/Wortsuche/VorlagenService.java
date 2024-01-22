@@ -4,32 +4,42 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * Business Layer
+ */
 @Service
 public class VorlagenService {
     @Autowired
     private VorlagenRepository vorlagenRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
     public List<Vorlagen> allVorlagen(){
+        // return all vorlagen in database
         return vorlagenRepository.findAll();
     }
 
     public Optional<Vorlagen> singleVorlage(ObjectId id){
+        // return specific vorlage from database through id
         return vorlagenRepository.findById(id);
     }
 
     public Optional<Vorlagen> singleVorlageByTitle(String title){
+        // return specific vorlage from database through title
         return vorlagenRepository.findByTitle(title);
     }
 
     public Map<String, List<Object>> findWordsinVorlagen(Vorlagen vorlage) {
+        //error handling for not found words in Database[Loesungswoerter]
         final Logger log = LoggerFactory.getLogger(VorlagenService.class);
+
         List<Pair> foundWords = new ArrayList<>();
         char[][] grid = vorlage.getGrid();
         List<String> loesungswoerter = vorlage.getLoesungswoerter();
-
         int rowLength = grid.length;
         int colLength = grid[0].length;
 
@@ -69,7 +79,7 @@ public class VorlagenService {
                     }
                 }
             }
-            // Sollte nie passieren, wenn keine diagonalen woerter vorhanden sind
+            // only happens, cause no diagonal search algorithmus
             if (!found) {
                 log.warn("Wort: {} nicht gefunden", word);
             }
@@ -85,5 +95,14 @@ public class VorlagenService {
             map.put(pair.getWord(), attributes);
         }
         return map;
+    }
+
+    /**
+     * create new vorlagen
+     * TODO: Implement creation of new vorlagen
+     */
+    public Vorlagen createVorlagen(String title, List<String> loesungswoerter, char[][] grid){
+
+        return null;
     }
 }
