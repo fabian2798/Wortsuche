@@ -67,4 +67,12 @@ public class VorlagenController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @PostMapping("/createVorlagen")
+    public ResponseEntity<Vorlagen> createVorlage(){
+        /**
+         * TODO: endpoint for new creations of vorlagen
+         */
+        return new ResponseEntity<Vorlagen>(HttpStatus.CREATED);
+    }
+
 }
