@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Class for custom methods
+ */
 @Repository
 public interface VorlagenRepository extends MongoRepository<Vorlagen, ObjectId> {
     Optional<Vorlagen> findByTitle(String title);
