@@ -21,6 +21,12 @@ public class Vorlagen {
     private char[][] grid;
 
 
+    public Vorlagen(String title, List<String> loesungswoerter, char[][] grid) {
+        this.title = title;
+        this.loesungswoerter = loesungswoerter;
+        this.grid = grid;
+    }
+
     public char[][] getGrid() {
         return this.grid;
     }
