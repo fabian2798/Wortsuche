@@ -17,7 +17,7 @@ public class VorlagenController {
     public ResponseEntity<List<Vorlagen>> getAllVorlagen (){
         return new ResponseEntity<List<Vorlagen>>(vorlagenService.allVorlagen(), HttpStatus.OK);
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Vorlagen>> getsingleVorlage(@PathVariable ObjectId id){
         Optional<Vorlagen> vorlage = vorlagenService.singleVorlage(id);
@@ -28,7 +28,7 @@ public class VorlagenController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    
     @GetMapping("/ByTitle")
     public ResponseEntity<Optional<Vorlagen>> getsingleVorlageByTitle(@RequestParam String title){
         Optional<Vorlagen> vorlage = vorlagenService.singleVorlageByTitle(title);
@@ -39,7 +39,12 @@ public class VorlagenController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+// The URL that returns "API is working." is localhost:8080/api/apitest 
+    @GetMapping("/apitest")
+    public ResponseEntity<String> apitest(){
+        return new ResponseEntity<String>("API is working.", HttpStatus.OK);
+    }
+    
     @GetMapping("/foundwords/{version}")
     public ResponseEntity<Map<String, List<Object>>> getFoundWords(@PathVariable String version) {
         List<Vorlagen> allVorlagen = vorlagenService.allVorlagen();

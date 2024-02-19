@@ -38,7 +38,10 @@ public class VorlagenService {
         final Logger log = LoggerFactory.getLogger(VorlagenService.class);
 
         List<Pair> foundWords = new ArrayList<>();
+        // In the previous line, are the <> brackets after ArrayList necessary?
+        // I think they are not necessary, but I am not sure.
         char[][] grid = vorlage.getGrid();
+        //
         List<String> loesungswoerter = vorlage.getLoesungswoerter();
         int rowLength = grid.length;
         int colLength = grid[0].length;
@@ -97,6 +100,30 @@ public class VorlagenService {
         return map;
     }
 
+    static List<String> getDiagonalGrid(char[][] grid, int[] direction) {
+        List<String> listoflines = new ArrayList<>();
+        for (int i = 0; i < xmax; i++) {
+            StringBuilder newline = new StringBuilder();
+            int[] next = {0, i};
+            while (next[0] < ymax && next[1] < xmax) {
+                newline.append(grid[next[0]][next[1]]);
+                next[0] += direction[0];
+                next[1] += direction[1];
+            }
+            listoflines.add(newline.toString());
+        }
+        for (int i = 1; i < ymax; i++) {
+            StringBuilder newline = new StringBuilder();
+            int[] next = {i, 0};
+            while (next[0] < ymax && next[1] < xmax) {
+                newline.append(grid[next[0]][next[1]]);
+                next[0] += direction[0];
+                next[1] += direction[1];
+            }
+            listoflines.add(newline.toString());
+        }
+        return listoflines;
+    }
     /**
      * create new vorlagen
      * TODO: Implement creation of new vorlagen
