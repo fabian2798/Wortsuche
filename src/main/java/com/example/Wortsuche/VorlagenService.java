@@ -41,7 +41,8 @@ public class VorlagenService {
         // In the previous line, are the <> brackets after ArrayList necessary?
         // I think they are not necessary, but I am not sure.
         char[][] grid = vorlage.getGrid();
-        //
+        // Get diagonal grid
+        List<String> gridDiagonal = getDiagonalGrid(grid, new int[]{1, 1});
         List<String> loesungswoerter = vorlage.getLoesungswoerter();
         int rowLength = grid.length;
         int colLength = grid[0].length;
@@ -84,9 +85,20 @@ public class VorlagenService {
             }
             // only happens, cause no diagonal search algorithmus
             if (!found) {
-                log.warn("Wort: {} nicht gefunden", word);
+        for (int i = 0; i < gridDiagonal.size(); i++) {
+                int index = gridDiagonal.get(i).indexOf(word.toUpperCase());
+                if (index != -1) {
+                int y = i < colLength ? 0 : i - colLength + 1;
+                y += index;
+                int x = i > colLength - 2 ? 0 : colLength - 1 - i;
+                x += index;
+                Map<String, Integer> place = new HashMap<>();
+                place.put("Spalte", x);
+                foundWords.add(new Pair(word, place, "Diagonal", new int[]{y, y + word.length() - 1}));
+                // log.warn("Wort: {} nicht gefunden", word);
             }
         }
+    }
         Map<String, List<Object>> map = new HashMap<>();
         for (Pair pair : foundWords) {
             List<Object> attributes = new ArrayList<>();
@@ -98,24 +110,26 @@ public class VorlagenService {
             map.put(pair.getWord(), attributes);
         }
         return map;
-    }
-
+}
+    
     static List<String> getDiagonalGrid(char[][] grid, int[] direction) {
+        int rowLength = grid.length;
+        int colLength = grid[0].length;
         List<String> listoflines = new ArrayList<>();
-        for (int i = 0; i < xmax; i++) {
+        for (int i = 0; i < colLength; i++) {
             StringBuilder newline = new StringBuilder();
             int[] next = {0, i};
-            while (next[0] < ymax && next[1] < xmax) {
+            while (next[0] < rowLength && next[1] < colLength) {
                 newline.append(grid[next[0]][next[1]]);
                 next[0] += direction[0];
                 next[1] += direction[1];
             }
             listoflines.add(newline.toString());
         }
-        for (int i = 1; i < ymax; i++) {
+        for (int i = 1; i < rowLength; i++) {
             StringBuilder newline = new StringBuilder();
             int[] next = {i, 0};
-            while (next[0] < ymax && next[1] < xmax) {
+            while (next[0] < rowLength && next[1] < colLength) {
                 newline.append(grid[next[0]][next[1]]);
                 next[0] += direction[0];
                 next[1] += direction[1];
@@ -124,6 +138,7 @@ public class VorlagenService {
         }
         return listoflines;
     }
+
     /**
      * create new vorlagen
      * TODO: Implement creation of new vorlagen
