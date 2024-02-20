@@ -41,6 +41,7 @@ public class VorlagenService {
         // In the previous line, are the <> brackets after ArrayList necessary?
         // I think they are not necessary, but I am not sure.
         char[][] grid = vorlage.getGrid();
+
         // Get diagonal grid
         List<String> gridDiagonal = getDiagonalGrid(grid, new int[]{1, 1});
         List<String> loesungswoerter = vorlage.getLoesungswoerter();
@@ -83,7 +84,8 @@ public class VorlagenService {
                     }
                 }
             }
-            // only happens, cause no diagonal search algorithmus
+
+            // Diagonal search
             if (!found) {
         for (int i = 0; i < gridDiagonal.size(); i++) {
                 int index = gridDiagonal.get(i).indexOf(word.toUpperCase());
@@ -93,12 +95,13 @@ public class VorlagenService {
                 int x = i > colLength - 2 ? 0 : colLength - 1 - i;
                 x += index;
                 Map<String, Integer> place = new HashMap<>();
-                place.put("Spalte", x);
-                foundWords.add(new Pair(word, place, "Diagonal", new int[]{y, y + word.length() - 1}));
+                place.put("Zeile: ", y);
+                foundWords.add(new Pair(word, place, "Diagonal", new int[]{x, x + word.length() - 1}));
                 // log.warn("Wort: {} nicht gefunden", word);
             }
         }
     }
+}
         Map<String, List<Object>> map = new HashMap<>();
         for (Pair pair : foundWords) {
             List<Object> attributes = new ArrayList<>();
@@ -110,8 +113,8 @@ public class VorlagenService {
             map.put(pair.getWord(), attributes);
         }
         return map;
-}
-    
+    }
+
     static List<String> getDiagonalGrid(char[][] grid, int[] direction) {
         int rowLength = grid.length;
         int colLength = grid[0].length;
