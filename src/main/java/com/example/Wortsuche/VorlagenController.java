@@ -55,6 +55,15 @@ public class VorlagenController {
             case "v3":
                 vorlagenIndex = 2;
                 break;
+            case "v4":
+                vorlagenIndex = 3;
+                break;
+            case "v5":
+                vorlagenIndex = 4;
+                break;
+            case "v6":
+                vorlagenIndex = 5;
+                break;
             default:
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
