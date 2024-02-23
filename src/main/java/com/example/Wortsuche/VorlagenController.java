@@ -39,30 +39,13 @@ public class VorlagenController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-// The URL that returns "API is working." is localhost:8080/api/apitest 
-    @GetMapping("/apitest")
-    public ResponseEntity<String> apitest(){
-        return new ResponseEntity<String>("API is working.", HttpStatus.OK);
-    }
     
     @GetMapping("/foundwords/{version}")
     public ResponseEntity<Map<String, List<Object>>> getFoundWords(@PathVariable String version) {
         List<Vorlagen> allVorlagen = vorlagenService.allVorlagen();
 
-        int vorlagenIndex;
-        switch (version) {
-            case "v1":
-                vorlagenIndex = 0;
-                break;
-            case "v2":
-                vorlagenIndex = 1;
-                break;
-            case "v3":
-                vorlagenIndex = 2;
-                break;
-            default:
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        // vorlagenIndex = integer value of last character of version
+        int vorlagenIndex = Character.getNumericValue(version.charAt(version.length() - 1));
         // out of bound
         if (vorlagenIndex >= allVorlagen.size()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
