@@ -1,0 +1,32 @@
+@startuml Wortsuche
+left to right direction
+rectangle "App" {
+usecase "Auswahl der Vorlagen sehen" as Auswahl
+usecase "Vorlage auswählen" as Vorlage
+usecase "Lösung des Rätsels sehen" as Lösung
+usecase "Rätsel lösen" as Lösungfinden
+}
+
+' The App-Komponenten package
+' Q: How do I put Komponenten on right side App rectangle?
+' A: Use the    as Komponenten    notation
+rectangle "App-Komponenten" as Komponenten {
+actor "React App" as React
+actor MongoDB
+actor "Spring Boot App" as Spring
+}
+
+actor Benutzer as User
+Lösung .> Vorlage: <<include>>
+Vorlage .> Auswahl: <<include>>
+User --> Lösung
+User --> Vorlage
+User --> Auswahl
+Auswahl <-- MongoDB
+Auswahl <-- Spring
+Auswahl <-- React
+Lösung <-- React
+Vorlage <-- React
+Lösungfinden <-- MongoDB
+Lösungfinden <-- Spring
+@enduml
