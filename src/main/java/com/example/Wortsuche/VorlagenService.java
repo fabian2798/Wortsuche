@@ -38,8 +38,6 @@ public class VorlagenService {
         final Logger log = LoggerFactory.getLogger(VorlagenService.class);
 
         List<Pair> foundWords = new ArrayList<>();
-        // In the previous line, are the <> brackets after ArrayList necessary?
-        // I think they are not necessary, but I am not sure.
         char[][] grid = vorlage.getGrid();
 
         // Get diagonal grid
