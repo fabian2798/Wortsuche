@@ -12,7 +12,7 @@ import java.util.*;
 @RequestMapping("/api/Vorlagen")
 public class VorlagenController {
     @Autowired
-    private VorlagenService vorlagenService;
+    private VorlagenServiceV2 vorlagenService;
     @GetMapping
     public ResponseEntity<List<Vorlagen>> getAllVorlagen (){
         return new ResponseEntity<List<Vorlagen>>(vorlagenService.allVorlagen(), HttpStatus.OK);
