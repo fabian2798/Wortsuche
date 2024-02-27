@@ -72,21 +72,21 @@ class App extends React.Component {
 
   //update data
   updateData = async () => {
-    await this.fetchDataLoesung();
-    if (this.state.data !== 0) {
-      let newLetters = this.state.data.grid?.map(row => row.split('')) || [];
-      let newWoerter = this.state.data.loesungswoerter || [];
-      this.setState({ letters: newLetters, woerter: newWoerter});
-    }
     await this.fetchDataVorlage();
+    await this.fetchDataLoesung();
     this.indexes = [];
-    if (this.state.dataLoesung !== 0) {
-      for (const [key, value] of Object.entries(this.state.dataLoesung || {})) {
-        this.indexes.push(this.transformFormat(value));
-      }
-    }
     setTimeout(() => {
       this.setState({ loading: false });
+      if (this.state.data !== 0) {
+        let newLetters = this.state.data.grid?.map(row => row.split('')) || [];
+        let newWoerter = this.state.data.loesungswoerter || [];
+        this.setState({ letters: newLetters, woerter: newWoerter});
+      }
+      if (this.state.dataLoesung !== 0) {
+        for (const [key, value] of Object.entries(this.state.dataLoesung || {})) {
+          this.indexes.push(this.transformFormat(value));
+        }
+      }
     }, 3000);
   }
 
